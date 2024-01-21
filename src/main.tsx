@@ -5,6 +5,7 @@ import Login from "./routes/Login.tsx"
 import Home from "./routes/Home.tsx"
 import Lobby from "./routes/Lobby.tsx"
 import Match from "./routes/Match.tsx"
+import Signup from "./routes/Signup.tsx"
 import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from './routes/ProtectedRoute.tsx'
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
   {
   path:"/",
   element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
   },
   {
   path:"/",

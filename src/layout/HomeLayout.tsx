@@ -15,6 +15,9 @@ export default function HomeLayout({ children }: HomeLayoutProps){
               Home
             </Link>
                     </li>
+                    <li>
+              <Link to="/signup">Signup</Link>
+            </li>
                 </ul>
             </nav>
         </header>
