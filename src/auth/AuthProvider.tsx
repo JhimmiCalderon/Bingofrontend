@@ -25,7 +25,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [accessToken, setAccessToken] = useState<string>("");
   const [refreshToken, setRefreshToken] = useState<string>("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isloading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   function getAccessToken() {
     return accessToken;
@@ -86,36 +86,28 @@ export function AuthProvider({ children }: AuthProviderProps) {
   async function checkAuth() {
     try {
       if (!!accessToken) {
-        //existe access token
         const userInfo = await retrieveUserInfo(accessToken);
         setUser(userInfo);
-        setAccessToken(accessToken);
         setIsAuthenticated(true);
-        setIsLoading(false);
       } else {
-        //no existe access token
         const token = localStorage.getItem("token");
         if (token) {
-          console.log("useEffect: token", token);
           const refreshToken = JSON.parse(token).refreshToken;
-          //pedir nuevo access token
           getNewAccessToken(refreshToken)
             .then(async (newToken) => {
               const userInfo = await retrieveUserInfo(newToken!);
               setUser(userInfo);
               setAccessToken(newToken!);
               setIsAuthenticated(true);
-              setIsLoading(false);
             })
             .catch((error) => {
-              console.log(error);
-              setIsLoading(false);
+              console.error(error);
             });
-        } else {
-          setIsLoading(false);
         }
       }
     } catch (error) {
+      console.error(error);
+    } finally {
       setIsLoading(false);
     }
   }
@@ -136,7 +128,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         signout,
       }}
     >
-      {isloading ? <div>Loading...</div> : children}
+      {isLoading ? <div>Loading...</div> : children}
     </AuthContext.Provider>
   );
 }
@@ -156,7 +148,9 @@ async function retrieveUserInfo(accessToken: string) {
       console.log(json);
       return json.body;
     }
-  } catch (error) {}
+  } catch (error) {
+    console.error('Error al obtener información del usuario:', error);
+  }
 }
 
 export const useAuth = () => useContext(AuthContext);

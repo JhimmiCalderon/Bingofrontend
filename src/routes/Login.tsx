@@ -52,21 +52,24 @@ export default function Login() {
 
    return (
    <HomeLayout>
-   <form className="form" onSubmit={handleSubmit}>
-      <h1>Bingo El gran Duda</h1>
+    <form onSubmit={handleSubmit}>
       {!!errorResponse && <div className="errorMessage">{errorResponse}</div>}
-      <label >Nombre</label>
-      <input type="text" 
-      value={username}
+   <h1>Bingo El gran Buda</h1>
+   <div className="form" >   
+  <div className="username">
+    <input type="text" placeholder="USERNAME" value={username}
       onChange={(e) => setUsername(e.target.value)}/>
-
-      <label >Contraseña</label>
-      <input type="password" 
+  </div>
+  <div className="password">
+  <input type="password" 
       value={password}
-      onChange={(e) => setPassword(e.target.value)}/>
-
-      <button>Iniciar Juego</button>
-   </form>
+      onChange={(e) => setPassword(e.target.value)} placeholder="PASSWORD"/>
+  </div>
+  <div className="login">
+    <button >iniciar juego</button>
+  </div>
+</div>
+</form>
    </HomeLayout>
    );
 }

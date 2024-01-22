@@ -23,7 +23,9 @@ export default function HomeLayout({ children }: HomeLayoutProps){
         </header>
 
         <main>
+        
             {children}
+            
         </main>
         </>
 

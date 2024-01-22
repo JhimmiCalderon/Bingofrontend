@@ -1,33 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HomeLayout from "../layout/HomeLayout";
 import { useNavigate } from "react-router-dom";
-
+import { useAuth } from '../auth/AuthProvider';
 
 export default function Home() {
-  const [roomId, setRoomid] = useState("");
-  const [username, setUsername] = useState("");
+  const { isAuthenticated, getUser } = useAuth();
+  const [roomId, setRoomId] = useState("");
+  const [username, setUsername] = useState(getUser()?.name || ""); // Inicializa con el nombre del usuario si está autenticado
+  const [winner, setWinner] = useState("false");
   const [status, setStatus] = useState("En espera");
  
-
   const goTo = useNavigate();
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      const user = getUser();
+      console.log('Nombre del usuario:', user?.name);
+      // Puedes realizar acciones adicionales al autenticar al usuario
+    } else {
+      // El usuario no está autenticado, puedes redirigir o realizar acciones necesarias
+    }
+  }, [isAuthenticated, getUser]);
 
-  async function handleStartGame(e: React.ChangeEvent<HTMLFormElement>) {
+  async function handleStartGame(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(username, roomId, status);
+    console.log(username, roomId, status, winner);
     try {
       const response = await fetch("http://localhost:3000/bingo/home", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({username, roomId, status}),
+        body: JSON.stringify({ username, roomId, status, winner }),
       });
 
       if (response.ok) {
-         const json = (await response.json()) 
+        const json = await response.json();
         console.log(json);
-        setUsername("");
-        setRoomid("");
+        setRoomId("");
         setStatus("");
+        setWinner("");
         console.log("Lobby creado exitosamente");
         goTo("/lobby");
       } else {
@@ -40,30 +50,24 @@ export default function Home() {
 
   return (
     <HomeLayout>
-      <form  onSubmit={handleStartGame}>
-        <label>
-          Room ID:
-          <input
-            type="text"
-            name="roomId"
-            value={roomId}
-            onChange={(e) => setRoomid(e.target.value)}
-          />
-        </label>
-        <label>
-          Username:
-          <input
-            type="text"
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </label>
-        <button >
-          Iniciar Juego
-        </button>
+      {isAuthenticated ? (
+        <h1>¡Hola, {getUser()?.name}!</h1>
+      ) : (
+        <div>No autenticado</div>
+      )}
+
+      <form onSubmit={handleStartGame}>
+        <div  className="form">
+        <div className="username">
+    <input type="text" name="roomId" placeholder="SALA N°" value={roomId}
+            onChange={(e) => setRoomId(e.target.value)} autoComplete="off"/>
+  </div>
+        
+  <div className="login">
+    <button >iniciar Sala</button>
+  </div>
+        </div>
       </form>
     </HomeLayout>
   );
 }
-

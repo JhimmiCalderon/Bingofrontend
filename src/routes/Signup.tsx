@@ -46,33 +46,34 @@ export default function Signup() {
 
   return (
     <HomeLayout>
-      <form onSubmit={handleSubmit} className="form">
-        <h1>Signup</h1>
-        {!!errorResponse && <div className="errorMessage">{errorResponse}</div>}
-        <label>Name</label>
-        <input
-          type="text"
-          name="name"
-          onChange={(e) => setName(e.target.value)}
-          value={name}
-        />
-        <label>Username</label>
-        <input
-          type="text"
+      
+      <form onSubmit={handleSubmit}>
+      {!!errorResponse && <div className="errorMessage">{errorResponse}</div>}
+      <h1>Registro Usuarios</h1>
+   <div className="form" >   
+  <div className="username">
+    <input type="text" placeholder="USERNAME" 
           name="username"
           onChange={(e) => setUsername(e.target.value)}
-          value={username}
-        />
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
-
-        <button>Create account</button>
-      </form>
+          value={username}/>
+  </div>
+  <div className="name">
+    <input type="text" placeholder="NAME" 
+          name="name"
+          onChange={(e) => setName(e.target.value)}
+          value={name}/>
+  </div>
+  <div className="password">
+  <input type="password" 
+     name="password"
+     onChange={(e) => setPassword(e.target.value)}
+     value={password} placeholder="PASSWORD"/>
+  </div>
+  <div className="login">
+    <button >CreaUsuario</button>
+  </div>
+</div>
+</form>
     </HomeLayout>
   );
 }

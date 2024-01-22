@@ -6,11 +6,10 @@ import Home from "./routes/Home.tsx"
 import Lobby from "./routes/Lobby.tsx"
 import Match from "./routes/Match.tsx"
 import Signup from "./routes/Signup.tsx"
-import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from './routes/ProtectedRoute.tsx'
 import { AuthProvider } from './auth/AuthProvider.tsx'
-
+import './index.css'
 const router = createBrowserRouter([
   {
   path:"/",
