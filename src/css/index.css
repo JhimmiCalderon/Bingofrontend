@@ -272,7 +272,7 @@ footer {
   cursor: pointer;
 }
 
-/* Estilos adicionales para resaltar el botón cuando se pasa el ratón sobre él */
+
 .styled-button:hover {
   opacity: 0.8;
 }

@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
 import Login from "./routes/Login.tsx"
 import Home from "./routes/Home.tsx"
 import Lobby from "./routes/Lobby.tsx"
@@ -10,54 +9,54 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from './routes/ProtectedRoute.tsx'
 import { AuthProvider } from './auth/AuthProvider.tsx'
 import './css/index.css'
+// Configuración del enrutador
 const router = createBrowserRouter([
   {
-  path:"/",
-  element: <Login />,
+    path: '/',
+    element: <Login />, // Ruta para la página de inicio de sesión
   },
   {
-    path: "/signup",
-    element: <Signup />,
+    path: '/signup',
+    element: <Signup />, // Ruta para la página de registro
   },
   {
-  path:"/",
-  element: <ProtectedRoute />,
-  children: [
-    {
-      path:"/home",
-      element: <Home />,
-    }
-  ]
+    path: '/',
+    element: <ProtectedRoute />, // Ruta protegida, requiere autenticación
+    children: [
+      {
+        path: '/home',
+        element: <Home />, // Ruta para la página principal
+      },
+    ],
   },
   {
-  path:"/",
-  element: <ProtectedRoute  />,
-  children:[
-    {
-      path:"/lobby",
-      element: <Lobby />,
-    }
-  ]
+    path: '/',
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: '/lobby',
+        element: <Lobby />, // Ruta para la página de lobby
+      },
+    ],
   },
   {
-  path:"/",
-  element: <ProtectedRoute  />,
-  children: [
-    {
-      path:"/match",
-      element: <Match />,
-    }
-  ],
+    path: '/',
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: '/match',
+        element: <Match />, // Ruta para la página de partido
+      },
+    ],
   },
 ]);
 
+// Renderizar la aplicación en el elemento con id 'root'
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <AuthProvider>
-    <RouterProvider router={router} />
+      {/* Proporcionar el enrutador y la autenticación a la aplicación */}
+      <RouterProvider router={router} />
     </AuthProvider>
-   
- 
-  
   </React.StrictMode>,
 );

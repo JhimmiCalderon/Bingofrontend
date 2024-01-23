@@ -1,7 +1,20 @@
+// NumberBalota.tsx
 import React, { useState, useEffect } from 'react';
 import "./css/Balota.css"
 
+/**
+ * Generador de Números Personalizado para Bingo
+ * 
+ * Proporciona un método para obtener un número aleatorio asociado a una columna del bingo.
+ */
 const customBingoGenerator = {
+  /**
+   * Obtener Número Aleatorio de Bingo
+   * 
+   * @param column - La columna para la cual se desea obtener un número aleatorio ('B', 'I', 'N', 'G', 'O').
+   * @returns Número aleatorio asociado a la columna especificada.
+   * @throws Error si la columna no es válida.
+   */
   getRandomBingoNumber: (column: string) => {
     // Verifica que la columna sea válida
     if (!['B', 'I', 'N', 'G', 'O'].includes(column)) {
@@ -26,10 +39,18 @@ const customBingoGenerator = {
   }
 };
 
+/**
+ * Props del Componente NumberBalota
+ */
 interface NumberBalotaProps {
   currentNumber: { column: string; value: number } | null;
 }
 
+/**
+ * Componente NumberBalota
+ * 
+ * Muestra la balota actual en un juego de bingo, con la letra de la columna y el número asociado.
+ */
 const NumberBalota: React.FC<NumberBalotaProps> = () => {
   // Estado para almacenar el número actual
   const [currentNumber, setCurrentNumber] = useState<{ column: string; value: number } | null>(null);
@@ -59,9 +80,9 @@ const NumberBalota: React.FC<NumberBalotaProps> = () => {
   return (
     <div>
       {/* Muestra la letra de la columna y el número actual */}
-      <h3>Balota Actual. </h3>
+      <h3>Balota Actual:</h3>
       <div className='balota'>
-      {currentNumber !== null ? `${currentNumber.column} ${currentNumber.value}` : 'Esperando...'}
+        {currentNumber !== null ? `${currentNumber.column} ${currentNumber.value}` : 'Esperando...'}
       </div>
     </div>
   );
