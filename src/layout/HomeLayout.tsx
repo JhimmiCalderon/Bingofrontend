@@ -1,33 +1,42 @@
-import { Children } from "react"
-import { Link } from "react-router-dom"
+import React from "react";
+import { Link } from "react-router-dom";
 
-interface HomeLayoutProps{
-    children: React.ReactNode;
+interface LayoutProps {
+  children: React.ReactNode;
 }
-export default function HomeLayout({ children }: HomeLayoutProps){
-    return(
-        <>
-        <header>
-            <nav>
-                <ul>
-                    <li>
-                    <Link to="/Home">
-              Home
-            </Link>
-                    </li>
-                    <li>
-              <Link to="/signup">Signup</Link>
+
+const HomeLayout: React.FC<LayoutProps> = ({ children }) => {
+  return (
+    <>
+      <header>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/Home">Home</Link>
             </li>
-                </ul>
-            </nav>
-        </header>
+            <li>
+              <Link to="/signup">Registro</Link>
+            </li>
+          </ul>
+        </nav>
+      </header>
 
-        <main>
-        
-            {children}
-            
-        </main>
-        </>
+      <main>
+        {children}
+      </main>
 
-    )
-}
+      <footer>
+      <div className="contact-info">
+          <p>Contacto:Correo electrónico: jhimmi@example.com,Número de teléfono: +1 (123) 456-789,
+          Dirección física: 123 Calle Principal, Ciudad</p>
+        </div>
+
+        <div className="copyright">
+          <p>&copy;2024 Jhimmi. Todos los derechos reservados.</p>
+        </div>
+      </footer>
+    </>
+  );
+};
+
+export default HomeLayout;

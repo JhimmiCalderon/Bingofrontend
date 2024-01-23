@@ -1,10 +1,14 @@
-
 .bingo-card {
-  align-items: center;
-  background-color: var(--color-bingo-card-bg);
   display: flex;
-  justify-content: center;
-  margin: 0.5rem;
+  background-color: white;
+  border: 1px solid var(--color-black);
+  border-radius: 4px;
+  padding: 0.5rem;
+  min-height: 300px;
+  max-width: 450px;
+  margin: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 50px; 
 }
 
 .bingo-card .column {
@@ -12,20 +16,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-bottom: 1px solid var(--color-black);
-  border-top: 1px solid var(--color-black);
+  border-right: 1px solid var(--color-black);
+  box-shadow: 2px 2px 5px -2px rgba(0, 0, 0, 0.1); /* Ajusta sombra de columna */
 }
 
 .bingo-card .column:first-child {
-  border-bottom-left-radius: 4px;
-  border-top-left-radius: 4px;
   border-left: 1px solid var(--color-black);
-}
-
-.bingo-card .column:last-child {
-  border-bottom-right-radius: 4px;
-  border-top-right-radius: 4px;
-  border-right: 1px solid var(--color-black);
 }
 
 .bingo-card .column .cell.header {
@@ -34,6 +30,8 @@
   cursor: default;
   font-size: 2rem;
   font-weight: bold;
+  border-bottom: 1px solid var(--color-black);
+  box-shadow: 0 2px 5px -2px rgba(0, 0, 0, 0.1); /* Ajusta sombra de celda de encabezado */
 }
 
 .bingo-card .column .cell {
@@ -45,18 +43,40 @@
   justify-content: center;
   transition: all 0.2s;
   width: 5vw;
+  position: relative;
+  box-shadow: 0 2px 5px -2px rgba(0, 0, 0, 0.1); /* Ajusta sombra de celda */
 }
 
 .bingo-card .column .cell.checked {
   background-color: var(--color-primary);
   color: var(--color-white);
   font-weight: bold;
+  box-shadow: 0 2px 5px -2px rgba(0, 0, 0, 0.1); /* Ajusta sombra de celda seleccionada */
 }
+
+.bingo-card .column .cell .buddha-silhouette {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU1WuBy0rSE5CTAIGzttairs0w0MsF1yEZV4S6asotShWG2pSr25H3djwTBcGcT2IVIfk&usqp=CAU') center center no-repeat; /* Reemplaza 'ruta/de/la/imagen/buda.svg' con la ruta correcta de tu imagen */
+  background-size: contain; /* Ajusta el tamaño de la imagen para que quepa en la celda */
+  display: none;
+}
+
+.bingo-card .column .cell.checked .buddha-silhouette {
+  display: block;
+}
+
+/* Resto de los estilos ... */
+
 
 .bingo-card .column .cell:not(.header):hover {
   background-color: var(--color-primary-light);
   color: var(--color-white);
 }
+
+/* Resto de los estilos y media queries ... */
+
 
 /* Media Queries */
 @media only screen and (max-width: 600px) {

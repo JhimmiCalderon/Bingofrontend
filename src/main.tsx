@@ -9,7 +9,7 @@ import Signup from "./routes/Signup.tsx"
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from './routes/ProtectedRoute.tsx'
 import { AuthProvider } from './auth/AuthProvider.tsx'
-import './index.css'
+import './css/index.css'
 const router = createBrowserRouter([
   {
   path:"/",

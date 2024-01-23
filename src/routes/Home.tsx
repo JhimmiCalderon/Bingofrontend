@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import HomeLayout from "../layout/HomeLayout";
+import HomeLayout from "../layout/Layout";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from '../auth/AuthProvider';
 
@@ -64,7 +64,7 @@ export default function Home() {
   </div>
         
   <div className="login">
-    <button >iniciar Sala</button>
+    <button >Crear Sala</button>
   </div>
         </div>
       </form>

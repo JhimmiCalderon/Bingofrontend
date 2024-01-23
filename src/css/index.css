@@ -11,6 +11,7 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  background-color: #f7b861;
   background-image: url('https://img.freepik.com/fotos-premium/um-desenho-animado-de-um-buda-sentado-em-posicao-de-lotus_900101-17338.jpg');
   background-size: cover;
   background-position: center;
@@ -30,6 +31,31 @@ h1 {
   animation: bounce 2s infinite; /* Nombre de la animación, duración y repetición */
   
 }
+h2 {
+  text-transform: uppercase;
+  font-family: "Bebas Neue", Arial;
+  color: #000000;
+  text-align: center; 
+  line-height: .5;    
+  margin: 0;
+  font-size: 87px;
+  
+  animation: bounce 2s infinite; /* Nombre de la animación, duración y repetición */
+  
+}
+h3 {
+  text-transform: uppercase;
+  font-family: "Bebas Neue", Arial;
+  color: #000000;
+  text-align: center; 
+  line-height: 1; /* Ajusta el espaciado entre líneas según tu preferencia */
+  margin: 0;
+  font-size: 40px; /* Ajusta el tamaño de la fuente según tu preferencia */
+  position: absolute; /* Cambia la posición a absoluta */
+  top:30%; /* Ajusta la posición vertical en relación con el contenedor padre */
+  left: 10%; /* Ajusta la posición horizontal en relación con el contenedor padre */
+  animation: bounce 2s infinite
+}
 
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% {
@@ -46,15 +72,19 @@ h1 {
 .form {
   height: 10.20em;
   width: 25em;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.0); /* Cambia el último valor (0.2) para ajustar la opacidad */
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   text-transform: uppercase;
   font-family: "Bebas Neue", Arial;
   color: #fff;
 }
+
+
+
+
 
 .form > div {
   height: 6.25em;
@@ -146,6 +176,7 @@ input {
   font-family: "Bebas Neue", Arial;
 }
 
+
 ::placeholder {
   color: #fff;
 }
@@ -184,9 +215,69 @@ a {
   width: 500px;
   margin: auto;
 }
-
+footer {
+  margin-top: 300px; 
+  background-color: #f9f9f9;
+  padding: 10px;
+  
+}
 .errorMessage {
   background-color: #f2dede;
   color: #a94442;
   padding: 10px;
 }
+
+.none {
+  text-align: center;
+}
+.btn {
+  padding: 20px 40px;
+  background-color: #3498db;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  display: inline-block;
+}
+
+/* Estilos para la clase "centered-form" */
+
+
+/* Estilos para el botón "Empezar" */
+.styled-button.primary {
+  position: relative; /* Establece el posicionamiento relativo */
+  background-color:  #18bb98;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  top: 40%; 
+  left: 47%; 
+  transform: translate(-15%, -50%); /* Ajusta la posición exacta mediante transformación */
+  margin-bottom: 10px; /* Espaciado inferior para separar del siguiente elemento */
+}
+
+
+/* Estilos para el botón "Mostrar mensaje" */
+.styled-button.primary-message {
+  background-color:  #18bb98;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Estilos adicionales para resaltar el botón cuando se pasa el ratón sobre él */
+.styled-button:hover {
+  opacity: 0.8;
+}
+
+
+
+
+

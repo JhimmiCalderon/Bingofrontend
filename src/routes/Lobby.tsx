@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import HomeLayout from "../layout/HomeLayout";
+import HomeLayout from "../layout/Layout";
+import Rules from "../Rules"
+
+
 import { Link } from "react-router-dom";
 
 export default function Lobby() {
@@ -21,11 +24,21 @@ export default function Lobby() {
         {countdown > 0 ? (
           <h2>{countdown} Segundos...</h2>
         ) : (
+          <div className="form">
+            <div className="none">
           <Link to="/match">
-            <button>Crear Tarjeton</button>
+          
+            <button className="btn" >Crear Tarjeton</button>
+            
           </Link>
+          </div>
+          </div>
         )}
+          <Rules/>
+          
       </form>
+      
     </HomeLayout>
+    
   );
 }

@@ -1,0 +1,57 @@
+/* UserList.css */
+.UserListContainer {
+    position: relative;
+    margin: 0 auto;
+    padding: 20px; /* Ajusta el relleno */
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    top: -300px; /* Ajusta la posición vertical */
+    left: 40%;
+    transform: translate(-50%, -50%);
+    overflow: hidden; /* Oculta el contenido que se desborda */
+    max-height: 0; /* Inicialmente oculta el contenido */
+    transition: max-height 0.3s ease, padding 0.3s ease; /* Agrega transiciones a max-height y padding */
+  }
+  
+  .UserListContainer.visible {
+    max-height: 500px;
+    padding: 10px; /* Ajusta el relleno cuando el contenedor es visible */
+  }
+  
+  .UserList {
+    list-style: none;
+    padding: 0;
+  }
+  .ToggleBtn {
+    margin-bottom: 10px;
+    padding: 4px 12px;
+    background-color: #17bdb7;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .UserListItem {
+    margin-bottom: 12px;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .UserListItem span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Otros estilos según sea necesario */
+  

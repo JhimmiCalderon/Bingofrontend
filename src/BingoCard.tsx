@@ -1,8 +1,9 @@
 import React, { useCallback, useMemo, useState } from 'react';
+import './css/Card.css';
 
-import './Card.css';
-
-interface BingoCardProps {}
+interface BingoCardProps {
+  onWin: () => void; 
+}
 
 const BINGO: string[] = ['B', 'I', 'N', 'G', 'O'];
 
@@ -14,9 +15,10 @@ interface Column {
   numbers: number[];
 }
 
-const BingoCard: React.FC<BingoCardProps> = () => {
+const BingoCard: React.FC<BingoCardProps> = ({ onWin }) => {
   const [numbersChecked, setNumbersChecked] = useState<number[]>([]);
-
+  const [isWinner, setIsWinner] = useState<boolean>(false);
+  const [cardInfo, setCardInfo] = useState([]);
   const generateNumbers = useCallback((column: number): number[] => {
     const max = (column + 1) * 15;
     const min = column ? column * 15 + 1 : 1;
@@ -33,6 +35,60 @@ const BingoCard: React.FC<BingoCardProps> = () => {
     return numbers.sort((a, b) => a - b);
   }, []);
 
+  const data: Column[] = useMemo(
+    () =>
+      BINGO.map((currentCharacter, columnIndex) => ({
+        character: currentCharacter,
+        numbers: generateNumbers(columnIndex),
+      })),
+    [generateNumbers]
+  );
+
+  const checkVerticalWin = useCallback((): boolean => {
+    for (let col = 0; col < 5; col++) {
+      const colNumbers = data[col].numbers;
+      if (colNumbers.every((number) => numbersChecked.includes(number))) {
+        console.log('¡Victoria vertical!');
+        return true;
+      }
+    }
+    return false;
+  }, [data, numbersChecked]);
+
+  const checkHorizontalWin = useCallback((): boolean => {
+    for (let row = 0; row < 5; row++) {
+      const rowNumbers = data.map((column) => column.numbers[row]);
+      if (rowNumbers.every((number) => numbersChecked.includes(number))) {
+        console.log('¡Victoria horizontal!');
+        return true;
+      }
+    }
+    return false;
+  }, [data, numbersChecked]);
+
+  const checkFourCornersWin = useCallback((): boolean => {
+    const corners = [
+      data[0].numbers[0],
+      data[0].numbers[4],
+      data[4].numbers[0],
+      data[4].numbers[4],
+    ];
+
+    return corners.every((number) => numbersChecked.includes(number));
+  }, [data, numbersChecked]);
+
+  const checkFullHouseWin = useCallback((): boolean => {
+    const allNumbers = data.flatMap((column) => column.numbers);
+    return allNumbers.every((number) => numbersChecked.includes(number));
+  }, [data, numbersChecked]);
+
+  const checkDiagonalWin = useCallback((): boolean => {
+    const diagonal1 = [data[0].numbers[0], data[1].numbers[1], data[2].numbers[2], data[3].numbers[3], data[4].numbers[4]];
+    const diagonal2 = [data[0].numbers[4], data[1].numbers[3], data[2].numbers[2], data[3].numbers[1], data[4].numbers[0]];
+
+    return diagonal1.every((number) => numbersChecked.includes(number)) || diagonal2.every((number) => numbersChecked.includes(number));
+  }, [data, numbersChecked]);
+
   const handleOnNumberClick = useCallback((number: number) => {
     setNumbersChecked((oldState) => {
       let newNumbersChecked: number[] = [...oldState];
@@ -43,18 +99,15 @@ const BingoCard: React.FC<BingoCardProps> = () => {
         newNumbersChecked.push(number);
       }
 
+      if (checkVerticalWin() || checkHorizontalWin() || checkFourCornersWin() || checkFullHouseWin() || checkDiagonalWin()) {
+        console.log('¡Has ganado!');
+        setIsWinner(true);
+        onWin(); 
+      }
+
       return newNumbersChecked;
     });
-  }, []);
-
-  const data: Column[] = useMemo(
-    () =>
-      BINGO.map((currentCharacter, columnIndex) => ({
-        character: currentCharacter,
-        numbers: generateNumbers(columnIndex),
-      })),
-    [generateNumbers]
-  );
+  }, [checkVerticalWin, checkHorizontalWin, checkFourCornersWin, checkFullHouseWin, checkDiagonalWin,onWin]);
 
   return (
     <div className="bingo-card">
@@ -62,11 +115,8 @@ const BingoCard: React.FC<BingoCardProps> = () => {
         <div className="column" key={column.character}>
           <p className="cell header">{column.character}</p>
           {column.numbers.map((number, numberIndex) => (
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-            <p
-              className={`cell${
-                numbersChecked.includes(number) ? ' checked' : ''
-              }`}
+            <div
+              className={`cell${numbersChecked.includes(number) ? ' checked' : ''}`}
               key={`${column.character}_${number}`}
               onClick={() =>
                 columnIndex === 2 && numberIndex === 2
@@ -74,11 +124,16 @@ const BingoCard: React.FC<BingoCardProps> = () => {
                   : handleOnNumberClick(number)
               }
             >
-              {columnIndex === 2 && numberIndex === 2 ? 'FREE' : number}
-            </p>
+              {numbersChecked.includes(number) ? (
+                <div className="buddha-silhouette"></div>
+              ) : (
+                <p>{columnIndex === 2 && numberIndex === 2 ? <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU1WuBy0rSE5CTAIGzttairs0w0MsF1yEZV4S6asotShWG2pSr25H3djwTBcGcT2IVIfk&usqp=CAU" alt="FREE" style={{ width: '100%', height: '100%' }} /> : number}</p>
+              )}
+            </div>
           ))}
         </div>
       ))}
+      {isWinner && <p className="winner-message"></p>}
     </div>
   );
 };
